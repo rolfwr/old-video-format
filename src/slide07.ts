@@ -1,8 +1,5 @@
-import { normalize } from "./lib/normalize";
-import { hamDecompress, greenCode } from "./lib/holdAndModify";
 import { srgbToPixels } from "./lib/srgbToPixels";
 import { showPixels } from "./lib/showPixels";
-import { byteToGrayScalePixels } from "./lib/byteToGrayScalePixels";
 
 export const title = 'Palett and Hold-And-Modify';
 
@@ -14,8 +11,10 @@ export async function slide07(parent: HTMLElement) {
   const blue  = [ 0x00, 0x02, 0x06 ]; // Index 4
 
   const palette = new Uint8ClampedArray([black, white, red, green, blue].flat());
-  showPixels(parent, srgbToPixels(normalize(palette)), 5);
+  showPixels(parent,srgbToPixels(palette), 5);
+  // normalize(palette)
 
+  /*
   const flagData = [
     2, 2, 2, 2, 2, 2, 1, 4, 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     2, 2, 2, 2, 2, 2, 1, 4, 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -36,16 +35,19 @@ export async function slide07(parent: HTMLElement) {
   ];
   const flag = new Uint8ClampedArray(flagData);
   showPixels(parent, byteToGrayScalePixels(normalize(flag)), 22);
+  */
 
-
+  /*
   const codes = new Uint8ClampedArray(22 * 16);
   showPixels(parent, srgbToPixels(normalize(hamDecompress(flag, codes, palette))), 22);
+  */
 
-
+  /*
   for (let i = 1; i < 16; ++i) {
     codes[i] = greenCode;
     flag[i] = i;
   }
   showPixels(parent, srgbToPixels(normalize(hamDecompress(flag, codes, palette))), 22);
+  */
 }
 

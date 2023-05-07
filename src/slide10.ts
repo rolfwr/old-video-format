@@ -1,8 +1,3 @@
-import { showJson } from "./lib/showJson";
-import { showHex } from "./lib/showHex";
-import { indicateError } from "./lib/stripes";
-import { createFFmpeg } from "@ffmpeg/ffmpeg";
-
 export const title = 'Koding av MP4-video';
 
 export async function slide10(parent: HTMLElement) {
@@ -14,6 +9,7 @@ export async function slide10(parent: HTMLElement) {
     srgba[i] = 0xFF;
   }
 
+  /*
   const mod = await import('@ffmpeg/core/dist/ffmpeg-core.js?url');
   const corePath = mod.default;
 
@@ -41,15 +37,20 @@ export async function slide10(parent: HTMLElement) {
   const encoded = ffmpeg.FS('readFile', 'encoded.mp4');
 
   showHex(parent, encoded);
+  */
 
+  /*
   const videoUrl = URL.createObjectURL(new Blob(
     [encoded.buffer],
     { type: 'video/mp4' }
   ));
   showJson(parent, videoUrl);
+  */
 
+  /*
   const video = parent.ownerDocument.createElement('video')
   video.onerror = indicateError;
   video.src = videoUrl;
   parent.appendChild(video);
+  */
 }

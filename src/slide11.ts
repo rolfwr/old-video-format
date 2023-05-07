@@ -1,14 +1,14 @@
 import { fetchBytes } from "./lib/fetchBytes";
-import { HamVideo } from "./lib/eg1986Video";
-import { indicateError } from "./lib/stripes";
-import { createFFmpeg } from "@ffmpeg/ffmpeg";
+import { showJson } from "./lib/showJson";
 
 export const title = 'Omkoding til MP4-video';
 
 export async function slide11(parent: HTMLElement) {
 
   const data = await fetchBytes('data/movie.data');
+  showJson(parent, { originalLength: data.byteLength});
 
+  /*
   const hamVideo = new HamVideo(data);
 
   const rawFrameLength = hamVideo.header.width * hamVideo.header.height * 4;
@@ -21,6 +21,10 @@ export async function slide11(parent: HTMLElement) {
     rawVideoBytes.set(pixels, rawFrameLength * i);
   }
 
+  showJson(parent, { rawVideoLength, originalCompression: rawVideoLength / data.byteLength });
+  */
+
+  /*
   const mod = await import('@ffmpeg/core/dist/ffmpeg-core.js?url');
   const corePath = mod.default;
 
@@ -43,7 +47,10 @@ export async function slide11(parent: HTMLElement) {
     'encoded.mp4'
   );
   const encoded = ffmpeg.FS('readFile', 'encoded.mp4');
+  showJson(parent, { transcodedLength: encoded.byteLength, newCompression: rawVideoLength / encoded.byteLength });
+  */
 
+  /*
   const videoUrl = URL.createObjectURL(new Blob(
     [encoded.buffer],
     { type: 'video/mp4' }
@@ -55,4 +62,5 @@ export async function slide11(parent: HTMLElement) {
   video.controls = true;
   video.loop = true;
   parent.appendChild(video);
+  */
 }

@@ -76,7 +76,6 @@ export class HamVideo {
   }
 }
 
-// TODO: Consider unifying with hamDecompress()
 function hamBitplanesToPixels(palette: Uint8ClampedArray, bitplanes: Uint8ClampedArray, pixelCount: number) {
   let r = 0;
   let g = 0;

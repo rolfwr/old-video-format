@@ -1,13 +1,9 @@
-import { chunkBitplanes } from "./lib/bitplanes";
 import { normalize } from "./lib/normalize";
 import { bitmapOffset, headerSize, paletteSize, readHeader } from "./lib/eg1986Header";
-import { updateFrame } from "./lib/eg1986DeltaFrame";
-import { hamDecompress } from "./lib/holdAndModify";
 import { fetchBytes } from "./lib/fetchBytes";
 import { srgbToPixels } from "./lib/srgbToPixels";
 import { showPixels } from "./lib/showPixels";
 import { showJson } from "./lib/showJson";
-import { byteToGrayScalePixels } from "./lib/byteToGrayScalePixels";
 
 export const title = 'Dekode videorammer';
 
@@ -21,42 +17,40 @@ export async function slide08(parent: HTMLElement) {
   const header = readHeader(dw, pos);
   pos += headerSize;
 
-  const palette = data.slice(pos, pos + paletteSize);
-  pos += paletteSize;
-
   const pixelCount = header.width * header.height;
   const onePlaneByteSize = Math.ceil(pixelCount / 8);
   const planesSize = onePlaneByteSize * 6;
 
+  showJson(
+    parent,
+    { pos, bitmapOffset, remaining: data.byteLength - pos, len: data.length, pixelCount, onePlaneByteSize, planesSize }
+  );
+
+  const palette = data.slice(pos, pos + paletteSize);
+  showPixels(parent, srgbToPixels(normalize(palette)));
+  pos += paletteSize;
+  showJson(parent, { pos, remaining: data.byteLength - pos });
+
+  /*
   const bitplanes = data.slice(pos);
   pos += planesSize;
-
-
-  showPixels(parent, srgbToPixels(normalize(palette)));
-
 
   const values0 = chunkBitplanes(bitplanes, pixelCount, 0, 4);
   const codes0 = chunkBitplanes(bitplanes, pixelCount, 4, 2);
   showPixels(parent, byteToGrayScalePixels(normalize(values0)), header.width);
   showPixels(parent, byteToGrayScalePixels(normalize(codes0)), header.width);
+  showJson(parent, { pos, remaining: data.byteLength - pos });
 
   showPixels(
     parent,
     srgbToPixels(normalize(hamDecompress(values0, codes0, palette))),
     header.width
   );
+  */
 
-  showJson(
-    parent,
-    { pixelCount, onePlaneByteSize, planesSize, bitmapOffset, pos, len: data.length }
-  );
-
-  const copy = new Uint8ClampedArray(bitplanes.length);
-  copy.set(bitplanes);
-  const buffers = [bitplanes, copy];
-
+  /*
   for (let i = 0; i < header.frames; ++i) {
-    const buf = buffers[i % 2];
+    const buf = bitplanes;
     const deltaSize = dw.getUint32(pos);
     pos += 4;
 
@@ -74,6 +68,16 @@ export async function slide08(parent: HTMLElement) {
       ),
       header.width
     );
+    showJson(parent, { pos, remaining: data.byteLength - pos });
   }
+  */
+
+  // <=
+
+  //const copy = new Uint8ClampedArray(bitplanes.length);
+  //const buffers = [bitplanes, copy];
+  //const buf = buffers[i % 2];
+
+  //copy.set(bitplanes);
 }
 
