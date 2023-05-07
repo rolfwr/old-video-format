@@ -1,0 +1,20 @@
+{
+  "name": "omni",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "postinstall": "mkdir -p data && podman run -v ./data:/output docker.io/alpine:3 sh -c 'apk add lha && wget -O - http://www.nic.funet.fi/pub/amiga/fish/001-100/ff097/juggler.lha | lha xi - Juggler/movie.data && cp movie.data /output && ls -al /output'"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.4",
+    "vite": "^4.3.5"
+  },
+  "dependencies": {
+    "@ffmpeg/core": "^0.11.0",
+    "@ffmpeg/ffmpeg": "^0.11.6"
+  }
+}
