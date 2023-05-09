@@ -22,7 +22,12 @@ export function showChunkedBitplanes(
   );
 }
 
-export function chunkBitplanes(bitplanes: Uint8ClampedArray, bitsPerPlane: number, firstBitplane: number, bitplaneCount: number) {
+export function chunkBitplanes(
+  bitplanes: Uint8ClampedArray, 
+  bitsPerPlane: number, 
+  firstBitplane: number, 
+  bitplaneCount: number
+) {
   const output = new Uint8ClampedArray(bitsPerPlane);
   for (let i = 0; i < bitsPerPlane; ++i) {
     let collectedBits = 0;
