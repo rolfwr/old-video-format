@@ -5,7 +5,12 @@
  * Bytes are updated in runs of 10, 8, 6, 4, or 2 bytes on every bitplane. The
  * delta format stores a variable number of runs for each of these sizes.
  */
-export function updateFrame(planes: Uint8ClampedArray, data: Uint8ClampedArray, onePlaneByteSize: number, pos: number) {
+export function updateFrame(
+  planes: Uint8ClampedArray,
+  data: Uint8ClampedArray,
+  onePlaneByteSize: number,
+  pos: number
+) {
   const runByteWidths = [10, 8, 6, 4, 2];
   const dw = new DataView(data.buffer, 0);
   for (const runByteWidth of runByteWidths) {
